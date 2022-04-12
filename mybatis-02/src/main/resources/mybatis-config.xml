@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!-- configuration核心配置文件 -->
+<configuration>
+    <!-- 引入外部配置文件 -->
+<!--    <properties resource="db.properties"/>-->
+    <properties resource="db.properties">
+        <!-- 优先使用外部配置文件 -->
+        <property name="password" value="1111111"/>
+    </properties>
+
+    <!-- 类型别名 -->
+    <typeAliases>
+        <!-- 可以给实体类起别名 -->
+<!--        <typeAlias type="com.wugang.pojo.User" alias="User"/>-->
+        <!-- 扫描实体类的包，它的默认别名就是首字母小写的类名；若需要修改别名则要在实体类中添加@Alias注解 -->
+        <package name="com.wugang.pojo"/>
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- 映射器 -->
+    <mappers>
+        <!-- 方式1 -->
+        <mapper resource="com/wugang/dao/UserMapper.xml"/>
+        
+        <!--
+             方式2：使用class文件绑定注册
+             注意：1.接口和它的Mapper配置文件必须同名；
+                  2.接口和它的Mapper配置文件必须在同一个包下；
+         -->
+<!--        <mapper class="com.wugang.dao.UserMapper"/>-->
+
+        <!--
+             方式3：使用扫描包进行注入绑定
+             注意：1.接口和它的Mapper配置文件必须同名；
+                  2.接口和它的Mapper配置文件必须在同一个包下；
+         -->
+<!--        <package name="com.wugang.dao"/>-->
+    </mappers>
+</configuration>
